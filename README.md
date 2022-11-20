@@ -1,39 +1,74 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Firestore Chat🔥💬
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## ⛏️ Getting started
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+To get started with Firebase, please see the documentation available at https://firebase.flutter.dev/docs/overview
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
+Add **Firestore Chat** to your project by following the instructions on the 
+**[install page](https://pub.dev/packages/firestore_chat/install)** and start using it:
 ```dart
-const like = 'sample';
+import 'package:firestore_chat/firestore_chat.dart';
 ```
 
-## Additional information
+You can open chat page either via Material route or directly push the chat page
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```
+await openChatPage(BuildContext context, ChatEntity chatEntity);
+```
+
+or
+
+```
+FirestoreChat().chatPageWidget(chatEntity)
+```
+
+## 📱 Example
+### Opening chat
+```dart
+final chatEntity = ChatEntity(
+    onMessageSent: (message, chatEntity){
+//
+    },
+    mainUser: mainUser,
+    peers: peers,
+    path: chatPath,
+    title: "FIFA 2022 Games",
+);
+
+
+//WAY 1
+Navigator.push(
+    context,
+    FirestoreChat().chatPageWidget(chatEntity),
+);
+
+//WAY 2
+await openChatPage(context, chatEntity);
+...
+```
+
+
+## Models 📦
+#### Peer User 👨
+##### Fields
+* `id` - user Id
+* `image` - user image url
+* `name` - user display name
+
+
+### Chat Entity 📩 
+##### Fields
+* `mainUser` - logged in user
+* `peers` - Map of users `<user ID, PeerUser>`
+* `title` - name of the chat (You can name group chats, can be `nullable`)
+* `path` - where the messages/chat should be store on firestore
+* `onMessageSent` - callback for when the message is saved to firestore
+
+
+
+
+## License ⚖️
+- [MIT](https://github.com/tedcrimson/firestore_chat/blob/master/LICENSE)
+
+## Issues and feedback 💭
+If you have any suggestion for including a feature or if something doesn't work, feel free to open a Github [issue](https://github.com/ambrosethebuild/firestore_chat/issues) for us to have a discussion on it.
