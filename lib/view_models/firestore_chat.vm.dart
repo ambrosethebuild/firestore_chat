@@ -25,7 +25,6 @@ class FirestoreChatViewModel extends BaseViewModel {
   }
 
   loadAllMessages() async {
-    
     //
     setBusy(true);
     try {

@@ -11,8 +11,8 @@ class PeerUser {
     return ChatUser(
       id: id,
       profileImage: image,
-      firstName: name.split(" ")[0] ,
-      lastName: name.split(" ")[1] ,
+      firstName: name,
+      lastName: "",
     );
   }
 }
