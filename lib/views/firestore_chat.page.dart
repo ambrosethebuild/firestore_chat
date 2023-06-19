@@ -21,7 +21,7 @@ class FirestoreChatPage extends StatelessWidget {
         ),
         body: ViewModelBuilder<FirestoreChatViewModel>.reactive(
           viewModelBuilder: () => FirestoreChatViewModel(context, chatEntity),
-          onModelReady: (model) => model.initialise(),
+          onViewModelReady: (model) => model.initialise(),
           builder: (context, vm, child) {
             return Theme(
               data: Theme.of(context),
