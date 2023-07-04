@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Image sharing support
+
 ## 0.1.0
 
 - Dart 3 null safety support

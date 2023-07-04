@@ -5,6 +5,7 @@ class ChatEntity {
   final Map<String, PeerUser> peers;
   final String path;
   final String? title;
+  bool supportMedia = false;
   final Function(
     String message,
     ChatEntity chatEntity,
@@ -16,5 +17,6 @@ class ChatEntity {
     required this.path,
     required this.title,
     required this.onMessageSent,
+    this.supportMedia = false,
   });
 }

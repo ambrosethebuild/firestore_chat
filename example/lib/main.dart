@@ -1,7 +1,14 @@
 import 'package:firestore_chat/firestore_chat.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -73,7 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
       mainUser: mainUser,
       peers: peers,
       path: "sport/football/2022/worldcup",
-      title: "FIFA 2022 Games",
+      title: "FIFA 2022 Games - Photo Sharing",
+      supportMedia: true,
       onMessageSent: (String message, ChatEntity chatEntity) {
         //handle when chat has been sent to firestore
         //you can use it to send notification or show a toast/snakbar
@@ -83,8 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await FirestoreChat().openChatPage(context, chatEntity);
   }
 
-
-  //open via navigation routing 
+  //open via navigation routing
   openChatSecond(context) async {
     final mainUser = PeerUser(id: "1", name: "User 1");
     final peers = {

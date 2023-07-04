@@ -20,14 +20,14 @@ class FirestoreChatUtils {
           ? (docData["photos"] as List).map((e) {
               return ChatMedia(
                 url: e['url'] ?? e ?? "",
-                fileName: "",
+                fileName: e['fileName'] ?? "",
                 type: MediaType.image,
               );
             }).toList()
           : [],
       createdAt: docData["timestamp"] != null
           ? DateTime.fromMillisecondsSinceEpoch(
-              docData["timestamp"]?.seconds,
+              docData["timestamp"]?.millisecondsSinceEpoch ?? 0,
             )
           : DateTime.now(),
       customProperties: {

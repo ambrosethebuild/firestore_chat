@@ -17,7 +17,15 @@ class ChatModel {
   static Map<String, dynamic> jsonFrom(ChatMessage m) {
     return {
       "text": m.text,
-      "photos": [],
+      "photos": (m.medias != null && m.medias!.isNotEmpty)
+          ? m.medias!.map((e) {
+              return {
+                "url": e.url,
+                "type": e.type.toString(),
+                "fileName": e.fileName,
+              };
+            }).toList()
+          : [],
       "userId": m.user.id,
       "activityStatus": 1,
       "seenStatus": 1,

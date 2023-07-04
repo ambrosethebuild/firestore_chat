@@ -35,9 +35,38 @@ class FirestoreChatPage extends StatelessWidget {
                         ? Colors.white
                         : Colors.black,
                   ),
+                  trailing: chatEntity.supportMedia
+                      ? [
+                          const SizedBox(width: 10),
+                          //send media button
+                          IconButton(
+                            icon: Icon(
+                              Icons.photo,
+                              color: Theme.of(context).brightness !=
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                            onPressed: vm.onSelectMedia,
+                          ),
+                          const SizedBox(width: 10),
+                          //send media from camera
+                          IconButton(
+                            icon: Icon(
+                              Icons.camera_alt,
+                              color: Theme.of(context).brightness !=
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                            onPressed: vm.onCameraMedia,
+                          ),
+                          const SizedBox(width: 10),
+                        ]
+                      : [const SizedBox.shrink()],
                 ),
                 messageListOptions: MessageListOptions(
-                  showDateSeparator: false,
+                  showDateSeparator: true,
                   chatFooterBuilder: vm.isBusy
                       ? const Center(
                           child: CircularProgressIndicator(strokeWidth: 2),

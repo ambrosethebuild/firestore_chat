@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firestore_chat/firestore_chat.dart';
 import 'package:firestore_chat/services/firestorechat.utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FirestoreChatViewModel extends BaseViewModel {
   //
@@ -17,6 +21,9 @@ class FirestoreChatViewModel extends BaseViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference? chatRef;
   StreamSubscription? chatStreamListener;
+  //
+  final firebaseStorage = FirebaseStorage.instance;
+  final ImagePicker _picker = ImagePicker();
 
   //
   initialise() {
@@ -100,6 +107,71 @@ class FirestoreChatViewModel extends BaseViewModel {
     } catch (error) {
       if (kDebugMode) {
         print("Error sending chat notification:: >> $error");
+      }
+    }
+  }
+
+  //
+  onSelectMedia() async {
+    try {
+      final selectedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (selectedFile != null) {
+        uploadPhoteChat(selectedFile);
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print("error selecting image from gallery ==> $error");
+      }
+    }
+  }
+
+  onCameraMedia() async {
+    try {
+      final selectedFile = await _picker.pickImage(source: ImageSource.camera);
+      if (selectedFile != null) {
+        uploadPhoteChat(selectedFile);
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print("error selecting image from camera ==> $error");
+      }
+    }
+  }
+
+  //
+  uploadPhoteChat(XFile selectedXFile) async {
+    try {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      //add random string to file name
+      fileName = "${fileName}_${Random().nextInt(1000000)}";
+      //get file extension for XFile path
+      String fileExtension = selectedXFile.path.split(".").last;
+      fileName = "$fileName.$fileExtension";
+      //
+      File selectFile = File(selectedXFile.path);
+      final storageRef = FirebaseStorage.instance.ref();
+      final chatImagesRef = storageRef.child("chat/images/$fileName");
+      await chatImagesRef.putFile(selectFile);
+      String imageLink = await chatImagesRef.getDownloadURL();
+      //send chat
+      ChatMessage message = ChatMessage(
+        user: chatEntity.mainUser.toChatUser(),
+        createdAt: DateTime.now(),
+        medias: [
+          ChatMedia(
+            url: imageLink,
+            fileName: fileName,
+            type: MediaType.image,
+            isUploading: true,
+          ),
+        ],
+      );
+
+      //
+      sendMessage(message);
+    } catch (error) {
+      if (kDebugMode) {
+        print("Error uploading file ==> $error");
       }
     }
   }
