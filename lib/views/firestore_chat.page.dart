@@ -3,6 +3,7 @@ import 'package:firestore_chat/view_models/firestore_chat.vm.dart';
 import 'package:flutter/material.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:stacked/stacked.dart';
+import 'package:intl/intl.dart';
 
 class FirestoreChatPage extends StatelessWidget {
   const FirestoreChatPage(this.chatEntity, {Key? key}) : super(key: key);
@@ -67,6 +68,8 @@ class FirestoreChatPage extends StatelessWidget {
                 ),
                 messageListOptions: MessageListOptions(
                   showDateSeparator: true,
+                  dateSeparatorFormat: DateFormat('dd MMM yyyy',
+                      Localizations.localeOf(context).languageCode),
                   chatFooterBuilder: vm.isBusy
                       ? const Center(
                           child: CircularProgressIndicator(strokeWidth: 2),

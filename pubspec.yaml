@@ -2,7 +2,7 @@ name: firestore_chat
 description: Chat using firestore. A very simple complete Chat System for
   flutter with firestore as backend for chat data. Fully functional package for
   Cloud Firestore that makes easier to implement chat in your application
-version: 0.1.1
+version: 0.1.2
 homepage: "https://github.com/ambrosethebuild/firestore_chat"
 
 environment:
@@ -20,6 +20,7 @@ dependencies:
   ionicons: ^0.2.2
   stacked: ^3.4.0
   url_launcher: ^6.1.11
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

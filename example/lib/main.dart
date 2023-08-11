@@ -1,6 +1,10 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:firestore_chat/firestore_chat.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'firebase_options.dart';
 
@@ -19,6 +23,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('ar', ''), // Arabic
+      ],
+      locale: const Locale('ar'), // Set the initial locale to Arabic
       title: 'Firestore Chat Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -79,8 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final chatEntity = ChatEntity(
       mainUser: mainUser,
       peers: peers,
-      path: "sport/football/2022/worldcup",
-      title: "FIFA 2022 Games - Photo Sharing",
+      path: "sport/football/2022/worldcup-1",
+      title: "FIFA 2022 Games - Photo Sharing - 1",
       supportMedia: true,
       onMessageSent: (String message, ChatEntity chatEntity) {
         //handle when chat has been sent to firestore

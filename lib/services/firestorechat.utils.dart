@@ -8,6 +8,9 @@ class FirestoreChatUtils {
     Map<String, dynamic> docData,
     ChatEntity chatEntity,
   ) {
+    //
+    int timestamp = docData["timestamp"]?.millisecondsSinceEpoch ??
+        DateTime.now().millisecondsSinceEpoch;
     return ChatMessage(
       user: chatEntity.peers[docData["userId"]]?.toChatUser() ??
           ChatUser(
@@ -26,9 +29,7 @@ class FirestoreChatUtils {
             }).toList()
           : [],
       createdAt: docData["timestamp"] != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              docData["timestamp"]?.millisecondsSinceEpoch ?? 0,
-            )
+          ? DateTime.fromMillisecondsSinceEpoch(timestamp)
           : DateTime.now(),
       customProperties: {
         "ref": docRef,

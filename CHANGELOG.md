@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Fix arabic error for datetime formatting
+
 ## 0.1.1
 
 - Image sharing support
