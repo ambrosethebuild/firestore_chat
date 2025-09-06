@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:dash_chat_custom/dash_chat_custom.dart';
 
 class ChatModel {
   String? id;

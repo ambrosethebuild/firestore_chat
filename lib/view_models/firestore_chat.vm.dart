@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:dash_chat_custom/dash_chat_custom.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firestore_chat/firestore_chat.dart';
 import 'package:firestore_chat/services/firestorechat.utils.dart';

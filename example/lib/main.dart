@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:firestore_chat/firestore_chat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

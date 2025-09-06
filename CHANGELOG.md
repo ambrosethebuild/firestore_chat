@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Flutter 3.35.2 upgrade
+
 ## 0.1.2
 
 - Fix arabic error for datetime formatting

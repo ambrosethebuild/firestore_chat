@@ -1,10 +1,9 @@
 import 'package:firestore_chat/models/chat_entity.dart';
 import 'package:firestore_chat/view_models/firestore_chat.vm.dart';
 import 'package:flutter/material.dart';
-import 'package:dash_chat_2/dash_chat_2.dart';
-import 'package:stacked/stacked.dart';
-// ignore: depend_on_referenced_packages
+import 'package:dash_chat_custom/dash_chat_custom.dart';
 import 'package:intl/intl.dart';
+import 'package:stacked/stacked.dart';
 
 class FirestoreChatPage extends StatelessWidget {
   const FirestoreChatPage(this.chatEntity, {Key? key}) : super(key: key);

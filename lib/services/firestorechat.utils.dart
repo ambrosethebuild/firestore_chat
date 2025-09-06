@@ -1,4 +1,4 @@
-import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:dash_chat_custom/dash_chat_custom.dart';
 import 'package:firestore_chat/models/chat_entity.dart';
 
 class FirestoreChatUtils {
