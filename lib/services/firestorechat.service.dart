@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 
 class FirestoreChat {
   //
-  openChatPage(BuildContext context, ChatEntity chatEntity) async {
+  Future<Future<dynamic>> openChatPage(
+    BuildContext context,
+    ChatEntity chatEntity,
+  ) async {
     return Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => FirestoreChatPage(chatEntity),
-      ),
+      MaterialPageRoute(builder: (context) => FirestoreChatPage(chatEntity)),
     );
   }
 

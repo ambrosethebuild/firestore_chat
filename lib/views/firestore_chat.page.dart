@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class FirestoreChatPage extends StatelessWidget {
-  const FirestoreChatPage(this.chatEntity, {Key? key}) : super(key: key);
+  const FirestoreChatPage(this.chatEntity, {super.key});
 
   final ChatEntity chatEntity;
 
@@ -43,7 +43,8 @@ class FirestoreChatPage extends StatelessWidget {
                           IconButton(
                             icon: Icon(
                               Icons.photo,
-                              color: Theme.of(context).brightness !=
+                              color:
+                                  Theme.of(context).brightness !=
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
@@ -55,7 +56,8 @@ class FirestoreChatPage extends StatelessWidget {
                           IconButton(
                             icon: Icon(
                               Icons.camera_alt,
-                              color: Theme.of(context).brightness !=
+                              color:
+                                  Theme.of(context).brightness !=
                                       Brightness.dark
                                   ? Colors.white
                                   : Colors.black,
@@ -68,8 +70,10 @@ class FirestoreChatPage extends StatelessWidget {
                 ),
                 messageListOptions: MessageListOptions(
                   showDateSeparator: true,
-                  dateSeparatorFormat: DateFormat('dd MMM yyyy',
-                      Localizations.localeOf(context).languageCode),
+                  dateSeparatorFormat: DateFormat(
+                    'dd MMM yyyy',
+                    Localizations.localeOf(context).languageCode,
+                  ),
                   chatFooterBuilder: vm.isBusy
                       ? const Center(
                           child: CircularProgressIndicator(strokeWidth: 2),

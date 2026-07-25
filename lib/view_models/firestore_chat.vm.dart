@@ -26,18 +26,19 @@ class FirestoreChatViewModel extends BaseViewModel {
   final ImagePicker _picker = ImagePicker();
 
   //
-  initialise() {
+  void initialise() {
     loadAllMessages();
     // listenToNewMessages();
   }
 
-  loadAllMessages() async {
+  Future<void> loadAllMessages() async {
     //
     setBusy(true);
     try {
       chatRef = firestore.collection("${chatEntity.path}/Activity");
-      QuerySnapshot<Object?>? chatData =
-          await chatRef!.orderBy("timestamp").get();
+      QuerySnapshot<Object?>? chatData = await chatRef!
+          .orderBy("timestamp")
+          .get();
       //
       for (var document in chatData.docs) {
         final docData = document.data()! as Map<String, dynamic>;
@@ -61,7 +62,7 @@ class FirestoreChatViewModel extends BaseViewModel {
   }
 
   //
-  listenToNewMessages() async {
+  Future<void> listenToNewMessages() async {
     chatRef = firestore.collection("${chatEntity.path}/Activity");
     chatStreamListener?.cancel();
     chatStreamListener = chatRef
@@ -69,29 +70,27 @@ class FirestoreChatViewModel extends BaseViewModel {
         .limitToLast(1)
         .snapshots(includeMetadataChanges: true)
         .skip(1)
-        .listen(
-      (event) {
-        //
-        if (!event.metadata.hasPendingWrites) {
-          for (var document in event.docChanges) {
-            final docData = document.doc.data()! as Map<String, dynamic>;
-            ChatMessage message = FirestoreChatUtils.toChatMessage(
-              document.doc.id,
-              docData,
-              chatEntity,
-            );
-            //
-            final msgId = document.doc.id;
-            if (!messageKeys.contains(msgId)) {
-              messages.insert(0, message);
-              messageKeys.insert(0, msgId);
-            }
-          }
+        .listen((event) {
           //
-          notifyListeners();
-        }
-      },
-    );
+          if (!event.metadata.hasPendingWrites) {
+            for (var document in event.docChanges) {
+              final docData = document.doc.data()! as Map<String, dynamic>;
+              ChatMessage message = FirestoreChatUtils.toChatMessage(
+                document.doc.id,
+                docData,
+                chatEntity,
+              );
+              //
+              final msgId = document.doc.id;
+              if (!messageKeys.contains(msgId)) {
+                messages.insert(0, message);
+                messageKeys.insert(0, msgId);
+              }
+            }
+            //
+            notifyListeners();
+          }
+        });
   }
 
   void sendMessage(ChatMessage m) async {
@@ -100,10 +99,7 @@ class FirestoreChatViewModel extends BaseViewModel {
     setBusy(false);
 
     try {
-      chatEntity.onMessageSent(
-        m.text,
-        chatEntity,
-      );
+      chatEntity.onMessageSent(m.text, chatEntity);
     } catch (error) {
       if (kDebugMode) {
         print("Error sending chat notification:: >> $error");
@@ -112,7 +108,7 @@ class FirestoreChatViewModel extends BaseViewModel {
   }
 
   //
-  onSelectMedia() async {
+  Future<void> onSelectMedia() async {
     try {
       final selectedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (selectedFile != null) {
@@ -125,7 +121,7 @@ class FirestoreChatViewModel extends BaseViewModel {
     }
   }
 
-  onCameraMedia() async {
+  Future<void> onCameraMedia() async {
     try {
       final selectedFile = await _picker.pickImage(source: ImageSource.camera);
       if (selectedFile != null) {
@@ -139,7 +135,7 @@ class FirestoreChatViewModel extends BaseViewModel {
   }
 
   //
-  uploadPhoteChat(XFile selectedXFile) async {
+  Future<void> uploadPhoteChat(XFile selectedXFile) async {
     try {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       //add random string to file name

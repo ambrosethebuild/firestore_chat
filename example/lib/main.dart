@@ -8,9 +8,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -33,9 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ar'), // Set the initial locale to Arabic
       title: 'Firestore Chat Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -53,9 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -79,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   //open via direct method call
-  openChatFirst(context) async {
+  Future<void> openChatFirst(BuildContext context) async {
     final mainUser = PeerUser(id: "1", name: "User 1");
     final peers = {
       "1": mainUser,
@@ -105,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   //open via navigation routing
-  openChatSecond(context) async {
+  Future<void> openChatSecond(BuildContext context) async {
     final mainUser = PeerUser(id: "1", name: "User 1");
     final peers = {
       "1": mainUser,
@@ -125,9 +119,6 @@ class _MyHomePageState extends State<MyHomePage> {
         //you can use it to send notification or show a toast/snakbar
       },
     );
-    Navigator.push(
-      context,
-      FirestoreChat().chatPageWidget(chatEntity),
-    );
+    Navigator.push(context, FirestoreChat().chatPageWidget(chatEntity));
   }
 }
