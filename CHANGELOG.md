@@ -1,3 +1,8 @@
+## 0.2.1
+
+- Upgrade to support current Flutter/Dart SDKs (Flutter >=3.35.0, Dart >=3.9.0)
+- Bump dependencies to latest compatible versions (cloud_firestore, firebase_core, firebase_storage, image_picker, flutter_lints)
+
 ## 0.2.0
 
 - Flutter 3.35.2 upgrade
